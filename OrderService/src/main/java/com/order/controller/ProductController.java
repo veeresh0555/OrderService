@@ -1,6 +1,9 @@
 package com.order.controller;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,16 @@ import com.order.model.ProductEntity;
 @RequestMapping("/product")
 public class ProductController {
 
+	@Autowired
+	Environment env;
+	
+	@GetMapping("/info")
+	public String info() {
+		String port=env.getProperty("local.server.port");
+		return "call Server "+port;
+	}
+	
+	
 	@GetMapping
 	public ResponseEntity<List<ProductEntity>> getAllProducts(){
 		System.out.println("In ProductService:-> Controller ");
